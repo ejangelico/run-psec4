@@ -15,7 +15,6 @@ $RECYCLE.BIN/
 *.msp
 
 #datafiles
-*.txt
 *.hdf5
 *.dat
 
