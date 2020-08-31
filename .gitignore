@@ -20,7 +20,6 @@ $RECYCLE.BIN/
 
 # compile files
 obj/*
-bin/*
 
 #temp files
 src/*~

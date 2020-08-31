@@ -5,50 +5,17 @@ updated 10/2014 ejo
 run-psec4 command-line functions and arguments
 Printed on GNU/Linux system on Mon 31 Aug 2020 10:14:28 AM CDT
 
-##Quick ./bin/ executable guide. Find more in depth guide below.
-
-###Run each executable with ./bin/<name> from the head directory. The code accesses files from relative file-path, and assumes the executing directory is just above "bin" and "cal_data"
-
-refresh :: prints some PSEC4 diagnostic info to screen
-refresh :: takes 0 arguments
-
-RawRead :: dumps raw event to screen and RAWREAD.txt
-RawRead :: takes 0 arguments
-
-SetPed :: is used to set the offset voltage at PSEC4 input
-SetPed :: takes 1 argument: PED_VALUE [unsigned int]
-
-TakePed :: runs pedestal calibration and saves constants to file: cal_data/PED_DATA.txt
-TakePed :: takes 0 arguments
-
-LinScan :: generates linearity correction and count-to-voltage conversion LUT for PSEC4 ADC
-LinScan :: takes 0 arguments
-
-EnableTrig :: is used to turn on/off self triggering option, and to specify trigger channel
-EnableTrig :: takes 2 arguments: ENABLE [1=ON, 0=OFF]  Channel_mask [int 1-6]
-
-SetInternalTrig :: is used to set the self trigger sign and voltage threshold level
-SetInternalTrig :: takes 2 arguments: TRIG_SIGN [1=(-pulse), 0=(+pulse)]  TRIG_TRESH [unsigned int]
-
-ScopeData :: is used look at waveforms via gnuplot
-ScopeData :: takes 2 arguments: number_waveforms [unsigned int]  mode [1=ext-trig 0=soft-trig]
-
-LogData :: is used to save PSEC4 data to a specified .txt file
-LogData :: takes 3 arguments: filename [string]  number_readouts [unsigned int]  trig_mode [0=software, 1=external source]
-
-
-
 PSEC4 evaluation board software -- for linux systems
 This is linux-based software (Ubuntu and RedHat tested) for the PSEC4 eval board.
 
 Eval board
 
-###1) Required Packages:
+### 1) Required Packages:
 g++
 libusb-dev (libusb-devel on RedHat/SL) (need 'development headers' for USB interface)
 gnuplot (for oscilloscope feature)
 
-###2) Check working board [USB plugged in and +5 V powered on]:
+### 2) Check working board [USB plugged in and +5 V powered on]:
 Power: ~300 mA at 5 V
 Check device:
 ```
@@ -58,7 +25,7 @@ Bus X Device X: ID 6672:2920
 
 LEDs: top LED blinks at 1 Hz and the bottom LED is solid. Middle LED is toggled when triggered/readout.
 
-###3) Add USB device read/write privileges to non-sudo user [optional step]:
+### 3) Add USB device read/write privileges to non-sudo user [optional step]:
 Put the following line in the file [or create this file] /etc/udev/rules.d/80-local.rules (or other rules file):
 
 ```
@@ -71,12 +38,12 @@ and then
 ```
 sudo udevadm control --reload-rules
 ```
-###4) Compiling:
+### 4) Compiling:
 ```
 $ make
 ```
 
-###5) Running:
+### 5) Running:
 BNC external trigger input toggles on rising edge
 When running on a hardware (hw) trigger, make sure external trig is plugged into board BNC input
 Note: If skipped section (3): running an executable requres 'sudo' prefix
@@ -153,3 +120,40 @@ $ ./bin/EnableTrig 1 1
 and look at pulses...
 
 $ ./bin/ScopeData 100 1
+
+
+
+
+## Quick ./bin/ executable guide. Find more in depth guide below.
+
+### Run each executable with ./bin/<name> from the head directory. The code accesses files from relative file-path, and assumes the executing directory is just above "bin" and "cal_data"
+
+refresh :: prints some PSEC4 diagnostic info to screen
+refresh :: takes 0 arguments
+
+RawRead :: dumps raw event to screen and RAWREAD.txt
+RawRead :: takes 0 arguments
+
+SetPed :: is used to set the offset voltage at PSEC4 input
+SetPed :: takes 1 argument: PED_VALUE [unsigned int]
+
+TakePed :: runs pedestal calibration and saves constants to file: cal_data/PED_DATA.txt
+TakePed :: takes 0 arguments
+
+LinScan :: generates linearity correction and count-to-voltage conversion LUT for PSEC4 ADC
+LinScan :: takes 0 arguments
+
+EnableTrig :: is used to turn on/off self triggering option, and to specify trigger channel
+EnableTrig :: takes 2 arguments: ENABLE [1=ON, 0=OFF]  Channel_mask [int 1-6]
+
+SetInternalTrig :: is used to set the self trigger sign and voltage threshold level
+SetInternalTrig :: takes 2 arguments: TRIG_SIGN [1=(-pulse), 0=(+pulse)]  TRIG_TRESH [unsigned int]
+
+ScopeData :: is used look at waveforms via gnuplot
+ScopeData :: takes 2 arguments: number_waveforms [unsigned int]  mode [1=ext-trig 0=soft-trig]
+
+LogData :: is used to save PSEC4 data to a specified .txt file
+LogData :: takes 3 arguments: filename [string]  number_readouts [unsigned int]  trig_mode [0=software, 1=external source]
+
+
+
