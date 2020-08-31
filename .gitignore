@@ -16,17 +16,16 @@ $RECYCLE.BIN/
 
 #datafiles
 *.txt
-/caldata/*
 *.hdf5
 *.dat
 
 # compile files
-/obj/*
-/bin/*
+obj/*
+bin/*
 
 #temp files
-/src/*~
-/include/*~
+src/*~
+include/*~
 
 # =========================
 # Operating System Files
